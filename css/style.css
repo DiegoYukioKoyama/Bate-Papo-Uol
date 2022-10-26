@@ -1,0 +1,29 @@
+.container-cabecalho{
+    width: 375px;
+    height: 80px;
+    padding-left: 22px;
+    padding-right: 21px;
+    display: flex;
+    justify-content: space-between;
+    box-sizing: border-box;
+    background-color: #FFFFFF;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.container-cabecalho img{
+    width: 75px;
+    height: 53px;
+    margin-top: 16px;
+    margin-bottom: 11px;
+    box-sizing: border-box;
+}
+
+.container-cabecalho ion-icon{
+    width: 45px;
+    height: 45px;
+    margin-top: 18px;
+    margin-bottom: 17px;
+    box-sizing: border-box;
+}
