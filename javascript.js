@@ -4,7 +4,7 @@ let nome = {name: prompt("Qual o seu nome?")};
 let mensagem = [];
 escolherNome();
 pegarMsg();
-setInterval(pegarMsg,3000);
+//setInterval(pegarMsg,3000);
 
 let nomeUsuario = nome.name;
 
@@ -50,7 +50,7 @@ function carregarMsg(respostamsg){
 
         msg.innerHTML += `
         <li class="msg entra-sai">
-            (${msgm.time}) ${msgm.from} ${msgm.text}
+            <span style="color: #AAAAAA;">(${msgm.time})</span> &nbsp <span style="font-weight: bold;">${msgm.from}</span> &nbsp${msgm.text}
         </li>
         `;
         }
@@ -60,7 +60,7 @@ function carregarMsg(respostamsg){
             if(msgm.to === nome || msgm.from === nome){
                 msg.innerHTML += `
                 <li class="msg reservadamente">
-                (${msgm.time}) ${msgm.from} reservadamente para ${msgm.to}: ${msgm.text}
+                <span style="color: #AAAAAA;">(${msgm.time})</span> &nbsp <span style="font-weight: bold;">${msgm.from}</span> &nbsp reservadamente para &nbsp <span style="font-weight: bold;">${msgm.to}</span>: &nbsp ${msgm.text}
                 </li>
                 `;
             }
@@ -69,7 +69,7 @@ function carregarMsg(respostamsg){
         else {
             msg.innerHTML += `
         <li class="msg todos">
-            (${msgm.time}) ${msgm.from} para ${msgm.to}: ${msgm.text}
+        <span style="color: #AAAAAA;">(${msgm.time})</span> &nbsp <span style="font-weight: bold;">${msgm.from}</span> &nbsp para &nbsp <span style="font-weight: bold;">${msgm.to}</span>: &nbsp ${msgm.text}
         </li>
         `;
         }
@@ -94,7 +94,6 @@ function enviarMsg(){
         text: msgEscrito,
         type: "message"
     }
-    console.log(msgEscrito);
     requisicao = axios.post("https://mock-api.driven.com.br/api/v6/uol/messages", novaMsg);
     requisicao.then(pegarMsg);
     requisicao.catch(recarregarPagina)
