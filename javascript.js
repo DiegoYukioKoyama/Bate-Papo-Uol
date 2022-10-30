@@ -4,6 +4,9 @@ let nome = {name: prompt("Qual o seu nome?")};
 let mensagem = [];
 escolherNome();
 pegarMsg();
+setInterval(pegarMsg,3000);
+
+let nomeUsuario = nome.name;
 
 function escolherNome(){
 
@@ -28,10 +31,9 @@ function escolhaOutroNome(erro){
 
 function pegarMsg(){
    
-    setInterval(() => {
     promisse = axios.get("https://mock-api.driven.com.br/api/v6/uol/messages");
     promisse.then(carregarMsg);
-    },3000);
+   
 }
 
 function carregarMsg(respostamsg){
@@ -55,12 +57,13 @@ function carregarMsg(respostamsg){
 
         else if(msgm.type === "private_message"){
 
-            msg.innerHTML += `
-        <li class="msg reservadamente">
-            (${msgm.time}) ${msgm.from} reservadamente para ${msgm.to}: ${msgm.text}
-        </li>
-        `;
-
+            if(msgm.to === nome || msgm.from === nome){
+                msg.innerHTML += `
+                <li class="msg reservadamente">
+                (${msgm.time}) ${msgm.from} reservadamente para ${msgm.to}: ${msgm.text}
+                </li>
+                `;
+            }
         }
 
         else {
@@ -73,9 +76,33 @@ function carregarMsg(respostamsg){
 
     }
 
+    const elementoQueQueroQueApareca = document.querySelector('.ultimo');
+    elementoQueQueroQueApareca.scrollIntoView();
+
 }
 
 function verificarUsuarioOn(){
     requisicao = axios.post("https://mock-api.driven.com.br/api/v6/uol/status", nome);
+}
+
+function enviarMsg(){
+
+    const msgEscrito = document.querySelector(".escrever").value;
+    const novaMsg = {
+        from: nomeUsuario,
+        to: "Todos",
+        text: msgEscrito,
+        type: "message"
+    }
+    console.log(msgEscrito);
+    requisicao = axios.post("https://mock-api.driven.com.br/api/v6/uol/messages", novaMsg);
+    requisicao.then(pegarMsg);
+    requisicao.catch(recarregarPagina)
+}
+
+function recarregarPagina(){
+
+    window.location.reload();
+
 }
 
